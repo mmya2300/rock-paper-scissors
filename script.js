@@ -1,103 +1,120 @@
-function getComputerChoice(min, max) {
-    return Math.floor(Math.random() * (max - min));
+let winScore = 0; // keeps track of when the user wins a round
+let loseScore = 0; // keeps track of when the user loses a round
+let round = 0; // keeps track of the amount of rounds
+let results = ""; // displays the result from each round played
+
+// selects all the buttons in the div '.options'
+const choiceButtons = document.querySelector('.options');
+const choices = choiceButtons.querySelectorAll('button');
+
+// selects and creates a function for the restart button
+const restartDiv = document.querySelector('.restart');
+const restartButton = restartDiv.querySelector('button');
+
+// the function clears the console, turns the buttons back on and puts the rounds back to zero
+function playAgain () {
+    round = 0;
+    console.clear();
+    choices.forEach( (button) => 
+        button.disabled = false
+    )
 }
 
+// add event listener for the restart button
+restartButton.addEventListener('click', (playAgain));
 
-
-function playRound(playerChoice, computerChoice) {
-
-    if(computerChoice === 0){
-            if(playerChoice == "Rock"){
-                return "TIE!"
-            }
-            else if(playerChoice == "Paper"){
-                return "COMPUTER WINS!"
-            }
-            else if(playerChoice == "Scissors"){
-                return "PLAYER WINS"
-            }
-            else {
-                return "Invalid";
-            }
-            
-        }
-    
-    else if(computerChoice === 1){
-            if(playerChoice == "Rock"){
-                return "COMPUTER WINS!"
-            }
-            else if(playerChoice == "Paper"){
-                return "TIE!"
-            }
-            else if(playerChoice == "Scissors"){
-                return "PLAYER WINS"
-            }
-            else {
-                return "Invalid";
-            }
-            
-        }
-    
-    
-    else if(computerChoice === 2){
-            if(playerChoice == "Rock"){
-                return "PLAYER WINS"
-            }
-            else if(playerChoice == "Paper"){
-                return "COMPUTER WINS!"
-            }
-            else if(playerChoice == "Scissors"){
-                return "TIE!"
-            }
-            else {
-                return "Invalid";
-            }
-            
-        }
-    
+// disables the user from playing the game further
+function gameOver () {
+    choices.forEach( (button) => 
+        button.disabled = true
+    )
 }
-    
-function game() {
-    let win = 0;
-    let lose = 0;
-    
-    while(win != 5 || lose != 6){
 
-        for(let i = 0; i < 5; i++){
-        
-        let playerTurn = prompt("Rock, Paper or Scissors?");
-        let computerTurn = getComputerChoice(0, 3);
-        playRound(playerTurn, computerTurn);
+// randomly chooses a string from the array
+function randomizer () {
+    let list = ['rock', 'paper', 'scissors'];
 
+    return list[Math.floor(Math.random() * list.length)];
+}
 
-        console.log(playerTurn);
-        console.log(computerTurn);
-        console.log(playRound(playerTurn, computerTurn));
-        
-        if(playRound(playerTurn, computerTurn) === "COMPUTER WINS!"){
-            lose++;
-            console.log(lose);
-        } else if(playRound(playerTurn, computerTurn) === "PLAYER WINS"){
-            win++;
-            console.log(win);
-        }
-        else {
-            continue;
-        }
-
-        }
+// tally the scores to see who wins
+function scores(win, lose){
 
     if(win > lose){
-        return "WINNER"
-    } else if (lose > win) {
-        return "LOSER"
+        results = "YOU WIN!"
+        gameOver();
+    } else if(lose > win){
+        results = "YOU LOSE"
+        gameOver();
     } else {
-        return "NO WINNER"
+        results = "IT'S A TIE!"
+        gameOver();
     }
-    }
-    
-    
+    console.log(results)
 }
+
+// the whole game in a function
+function playRound (playerTurn) {
+    let computerTurn = randomizer();
+    console.log(computerTurn)
+    console.log(playerTurn)
+
+    if(computerTurn == 'rock'){
+        if(playerTurn == 'rock'){
+            results = "TIE";
+        } 
+        else if(playerTurn == 'scissors') {
+            loseScore++;
+            results = "Lose";
+        }
+        else if(playerTurn == 'paper') {
+            winScore++;
+            results = "Win";
+        }
+    }
+    if(computerTurn == 'scissors'){
+        if(playerTurn == 'rock'){
+            winScore++;
+            results = "Win";
+        } 
+        else if(playerTurn == 'scissors') {
+            results = "Tie"
+        }
+        else if(playerTurn == 'paper') {
+            loseScore++;
+            results = "Lose";
+        }
+    }
+    if(computerTurn == 'paper'){
+        if(playerTurn == 'rock'){
+            loseScore++;
+            results =  "Lose";
+        } 
+        else if(playerTurn == 'scissors') {
+            winScore++;
+            results = "Win";
+        }
+        else if(playerTurn == 'paper') {
+            results = "TIE";
+        }
+    }
+    console.log(results)
+    round++;
+
+}
+// collects all the buttons and gives them the same function
+choices.forEach((button) => {
+    // adds an event for each button
+    button.addEventListener('click', () => {
+        console.log(playRound(button.id));
+        console.log(round)
+        // stops the game if 5 rounds are played
+        if(round == 5){
+            console.log(scores(winScore, loseScore));
+        }
+    })
+})
+
 
 
 
