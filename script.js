@@ -3,6 +3,11 @@ let loseScore = 0; // keeps track of when the user loses a round
 let round = 0; // keeps track of the amount of rounds
 let results = ""; // displays the result from each round played
 
+// displays the scores
+document.getElementById('lose-score').innerHTML = loseScore;
+document.getElementById('win-score').innerHTML = winScore;
+
+
 // selects all the buttons in the div '.options'
 const choiceButtons = document.querySelector('.options');
 const choices = choiceButtons.querySelectorAll('button');
@@ -11,9 +16,14 @@ const choices = choiceButtons.querySelectorAll('button');
 const restartDiv = document.querySelector('.restart');
 const restartButton = restartDiv.querySelector('button');
 
-// the function clears the console, turns the buttons back on and puts the rounds back to zero
+// the function clears the console, turns the buttons back on and puts the rounds and scores back to zero
 function playAgain () {
+    winScore = 0;
+    loseScore = 0;
     round = 0;
+    document.getElementById('win-score').innerHTML = winScore;
+    document.getElementById('lose-score').innerHTML = loseScore;
+
     console.clear();
     choices.forEach( (button) => 
         button.disabled = false
@@ -55,6 +65,10 @@ function scores(win, lose){
 
 // the whole game in a function
 function playRound (playerTurn) {
+    // adds to the lose or win score on the document
+    document.getElementById('lose-score').innerHTML = loseScore;
+    document.getElementById('win-score').innerHTML = winScore;
+    
     let computerTurn = randomizer();
     console.log(computerTurn)
     console.log(playerTurn)
@@ -69,7 +83,9 @@ function playRound (playerTurn) {
         }
         else if(playerTurn == 'paper') {
             winScore++;
+            
             results = "Win";
+            
         }
     }
     if(computerTurn == 'scissors'){
@@ -102,6 +118,7 @@ function playRound (playerTurn) {
     round++;
 
 }
+
 // collects all the buttons and gives them the same function
 choices.forEach((button) => {
     // adds an event for each button
