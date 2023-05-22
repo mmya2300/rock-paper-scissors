@@ -1,7 +1,7 @@
 
 let winScore = 0; // keeps track of when the user wins a round
 let loseScore = 0; // keeps track of when the user loses a round
-let round = 1; // keeps track of the amount of rounds
+let round = 0; // keeps track of the amount of rounds
 let results = ""; // displays the result from each round played
 
 // displays the scores
@@ -58,7 +58,7 @@ function randomizer () {
 function scores(win, lose){
 
     if(win > lose){
-        results = "Congragts! YOU WIN!"
+        results = "Yay! YOU WIN!"
         gameOver();
     } else if(lose > win){
         results = "I'm Sorry! YOU LOSE!"
@@ -129,7 +129,6 @@ function playRound (playerTurn) {
         round++;
         console.log(round)
       }
-    
     const computerPlayElement = document.getElementById('computer-play')
     const userPlayElement = document.getElementById('user-play')
     const resultElement = document.getElementById('round-result')
@@ -145,7 +144,7 @@ choices.forEach((button) => {
     button.addEventListener('click', () => {
         playRound(button.id);
         // stops the game if 5 rounds are played
-        if(round > 6){
+        if(round > 5){
             scores(winScore, loseScore);
         }
     })
