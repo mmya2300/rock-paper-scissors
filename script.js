@@ -144,7 +144,7 @@ choices.forEach((button) => {
     button.addEventListener('click', () => {
         playRound(button.id);
         // stops the game if 5 rounds are played
-        if(round > 5){
+        if(round > 6){
             scores(winScore, loseScore);
         }
     })
