@@ -1,6 +1,7 @@
+
 let winScore = 0; // keeps track of when the user wins a round
 let loseScore = 0; // keeps track of when the user loses a round
-let round = 0; // keeps track of the amount of rounds
+let round = 1; // keeps track of the amount of rounds
 let results = ""; // displays the result from each round played
 
 // displays the scores
@@ -21,6 +22,12 @@ function playAgain () {
     winScore = 0;
     loseScore = 0;
     round = 0;
+    const computerPlayElement = document.getElementById('computer-play')
+    const userPlayElement = document.getElementById('user-play')
+    const resultElement = document.getElementById('round-result')
+    computerPlayElement.innerHTML = null
+    userPlayElement.innerHTML = null
+    resultElement.innerHTML = null
     document.getElementById('win-score').innerHTML = winScore;
     document.getElementById('lose-score').innerHTML = loseScore;
 
@@ -51,16 +58,18 @@ function randomizer () {
 function scores(win, lose){
 
     if(win > lose){
-        results = "YOU WIN!"
+        results = "Congragts! YOU WIN!"
         gameOver();
     } else if(lose > win){
-        results = "YOU LOSE"
-        gameOver();
-    } else {
-        results = "IT'S A TIE!"
+        results = "I'm Sorry! YOU LOSE!"
         gameOver();
     }
-    console.log(results)
+    const computerPlayElement = document.getElementById('computer-play')
+    const userPlayElement = document.getElementById('user-play')
+    computerPlayElement.innerHTML = null
+    userPlayElement.innerHTML = null
+    const resultElement = document.getElementById('round-result')
+    resultElement.innerHTML = results
 }
 
 // the whole game in a function
@@ -70,52 +79,63 @@ function playRound (playerTurn) {
     document.getElementById('win-score').innerHTML = winScore;
     
     let computerTurn = randomizer();
-    console.log(computerTurn)
-    console.log(playerTurn)
+    console.log("the computer choose:" + computerTurn)
+    console.log("the player choose:" + playerTurn)
 
-    if(computerTurn == 'rock'){
-        if(playerTurn == 'rock'){
-            results = "TIE";
+    if(computerTurn === 'rock'){
+        if(playerTurn === 'rock'){
+            results = "It's a TIE"
         } 
-        else if(playerTurn == 'scissors') {
+        else if(playerTurn === 'scissors') {
             loseScore++;
-            results = "Lose";
+            results = "Sorry, You lost this round"
         }
-        else if(playerTurn == 'paper') {
+        else if(playerTurn === 'paper') {
             winScore++;
-            
-            results = "Win";
+            results = "Good job, You win!"
             
         }
     }
-    if(computerTurn == 'scissors'){
+    if(computerTurn === 'scissors'){
         if(playerTurn == 'rock'){
             winScore++;
-            results = "Win";
+            results = "Good job, You win!"
         } 
-        else if(playerTurn == 'scissors') {
-            results = "Tie"
+        else if(playerTurn === 'scissors') {
+            results = "It's a TIE"
         }
-        else if(playerTurn == 'paper') {
+        else if(playerTurn === 'paper') {
             loseScore++;
-            results = "Lose";
+            results = "Sorry, You lost this round"
         }
     }
-    if(computerTurn == 'paper'){
-        if(playerTurn == 'rock'){
+    if(computerTurn === 'paper'){
+        if(playerTurn === 'rock'){
             loseScore++;
-            results =  "Lose";
+            results = "Sorry, You lost this round"
         } 
-        else if(playerTurn == 'scissors') {
+        else if(playerTurn === 'scissors') {
             winScore++;
-            results = "Win";
+            results = "Good job, You win!"
         }
-        else if(playerTurn == 'paper') {
-            results = "TIE";
+        else if(playerTurn === 'paper') {
+            results = "It's a TIE"
         }
     }
     console.log(results)
-    round++;
+    console.log("player:" + winScore)
+    console.log("bot:" + loseScore)
+    if (results !== "It's a TIE") {
+        round++;
+        console.log(round)
+      }
+    
+    const computerPlayElement = document.getElementById('computer-play')
+    const userPlayElement = document.getElementById('user-play')
+    const resultElement = document.getElementById('round-result')
+    computerPlayElement.innerHTML = "The computer chose: " + computerTurn
+    userPlayElement.innerHTML = "The player chose: " + playerTurn
+    resultElement.innerHTML = results;
 
 }
 
@@ -123,11 +143,10 @@ function playRound (playerTurn) {
 choices.forEach((button) => {
     // adds an event for each button
     button.addEventListener('click', () => {
-        console.log(playRound(button.id));
-        console.log(round)
+        playRound(button.id);
         // stops the game if 5 rounds are played
-        if(round == 5){
-            console.log(scores(winScore, loseScore));
+        if(round > 6){
+            scores(winScore, loseScore);
         }
     })
 })

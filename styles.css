@@ -3,25 +3,69 @@
     src: url(./fonts/PressStart2P-Regular.ttf);
 }
 
-
-
-
-
 body{
-    background-color: rgb(149, 143, 182);
+    background-color: rgb(204, 200, 222);
     margin: 0;
     padding: 0;
     font-family: AracadeFont, sans-serif;
 }
-
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 header img{
-    width: 1000px;
+    width: 800px;
     height: auto;
 }
 
 img{
-    width: 300px;
+    width: 200px;
     height: auto;
+}
+.results{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.results span{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#credit{
+    display: flex;
+    padding: 26.5px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(144, 140, 162);;
+}
+#credit img {
+    height: 45px;
+    width: auto;
+}
+.score{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.options{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 17px;
 }
 
 .options button{
@@ -29,3 +73,39 @@ img{
     outline: none;
     border: none;
 }
+
+#win-score {
+    font-size: 55px;
+}
+#lose-score {
+    font-size: 55px;
+}
+
+.restart{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+/* Style for the retro arcade button */
+#restartButton {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: AracadeFont, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 0 #fff, 0 8px 0 #000;
+  }
+  
+  /* Style for the retro arcade button when it is pressed */
+  #restartButton:active {
+    box-shadow: none;
+    background-color: #fff;
+    color: #000;
+    transform: translateY(4px);
+  }
+  
